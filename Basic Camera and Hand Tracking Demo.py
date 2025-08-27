@@ -1,6 +1,8 @@
-# Use source venv/bin/activate in terminal to activate the virtual environment
+# Use "source venv/bin/activate" in terminal to activate the virtual environment
 
-# Use deactivate to exit the virtual environment
+# Use "deactivate" to exit the virtual environment
+
+# Run "pip3 install -r requirements.txt" to install dependencies before running this script
 
 # Import necessary libraries
 
