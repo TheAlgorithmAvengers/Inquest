@@ -18,9 +18,6 @@ hands = mp_hands.Hands(
 
 char = ""
 
-# nt is windows else linux or mac
-os.system('cls' if os.name == 'nt' else 'clear')
-
 print("Camera is on.")
 
 while True:
@@ -60,8 +57,6 @@ while True:
             print(f"Image saved at: {file_path}")
 
             time.sleep(0.5)
-
-
  
 cam.release()
 cv2.destroyAllWindows()
