@@ -18,12 +18,16 @@ hands = mp_hands.Hands(
 
 char = ""
 
-print("Camera is on.")
+pm = True
 
 while True:
     ret, frame = cam.read()
     if not ret:
         break
+
+    if pm:
+        print(" \n \n \n Camera is on. Press 'Esc' to exit. Press any albhabet to save an image in that folder. \n \n \n ")
+        pm = False
 
     cv2.imshow("Camera To Collect Data", frame)
 
@@ -39,6 +43,7 @@ while True:
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
     if results.multi_hand_landmarks:
+        
         if key != 255:
 
             char = chr(key)
@@ -59,6 +64,7 @@ while True:
             time.sleep(0.5)
  
 cam.release()
+
 cv2.destroyAllWindows()
 
 
