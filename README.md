@@ -1,6 +1,6 @@
 This repository contains the code of (insert name here).
 
-This platform helps translate Indian Sign Language to English and anounces the translation, effectively working as a 'mike' for people who are differently-abled and can not hear nor communicate in English or any other language that we regularly use today. 
+This platform helps translate American Sign Language to English and anounces the translation, effectively working as a 'mike' for people who are differently-abled and can not hear nor communicate in English or any other language that we regularly use today. 
 
 It uses Artifical Intelligence to detect hand signs, convert it into charecters and translate it into grammatically correct English. In such a context it helps potray the Growth And Development Of Society with the Growth of Artifical Intelligence.
 
