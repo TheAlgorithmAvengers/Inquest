@@ -20,3 +20,5 @@ You can now run / edit the required files.
 After installing any new packages delete the old requirements.txt and run the command "pip freeze > requirements.txt" in the terminal.
 
 After editing any file or additing a new package please inform the team mates about the same so they can edit their versions.
+
+The database file is uploaded on Google Drive. Please drag the resources folder and the trained_model.keras file out of it and place it in the project folder.
