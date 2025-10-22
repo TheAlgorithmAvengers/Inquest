@@ -8,23 +8,41 @@ import os
 
 import mediapipe as mp
 
+from tqdm import tqdm
+
+import random
+
+coordinates = np.array([[0]*64])
+
 mp_hands = mp.solutions.hands
 
 hands = mp_hands.Hands(
-    static_image_mode=False,  
+    static_image_mode=True,  
     max_num_hands=1,           
     min_detection_confidence=0.5  
 )
 
-coordinates = np.array([[0]*64])
+def extract_coordinates(i):
 
-for i in range(65, 91):
+    global coordinates
 
     folder = chr(i)
 
+    i_num = i - 64
+
+    if(i == 0):
+        folder = "Space"
+        i_num = 0
+
+    if (i == 27):
+        folder = "Delete"
+        i_num = 27
+
     folder_path = os.path.join("resources", folder)
 
-    for filename in os.listdir(folder_path):
+    print("\n")
+
+    for filename in tqdm(os.listdir(folder_path), desc=f"Processing {folder} folder"):
 
         if filename.lower().endswith((".png", ".jpg", ".jpeg")):
 
@@ -33,6 +51,9 @@ for i in range(65, 91):
             image = cv2.imread(image_path)
 
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+            if random.random() < 0.5:
+                image = cv2.flip(image, 1)
 
             results = hands.process(image)
 
@@ -44,16 +65,25 @@ for i in range(65, 91):
                         [[lm.x, lm.y, lm.z] for lm in hand_landmarks.landmark]
                     ).flatten()
 
-                    hand_array = np.append(hand_array, (i - 64))
+                    hand_array = np.append(hand_array, i_num)
 
                     coordinates = np.append(coordinates, [hand_array], axis=0)
-
-                    del hand_array
                      
             del image, image_path, results
 
+    del folder, i_num, folder_path, filename
+  
 
-del hands, mp_hands,  folder, folder_path, cv2, mp
+for i in tqdm (range(0,27), desc="Processing Folders"):
+    if i == 0 or i == 27:
+        extract_coordinates(i)
+    else:
+        extract_coordinates(i+64)
+
+
+np.savetxt(os.path.join("resources", "data.txt"), coordinates, delimiter=",", fmt="%f")
+
+np.savetxt(os.path.join("resources", "data.csv"), coordinates, delimiter=",", fmt="%f")
 
 header = np.array([])
 
@@ -64,6 +94,7 @@ for i in range (21):
     header = np.append(header, f"y{i}")
 
     header = np.append(header, f"z{i}")
+
 
 del i
 
