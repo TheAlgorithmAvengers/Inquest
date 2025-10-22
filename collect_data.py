@@ -12,7 +12,7 @@ mp_hands = mp.solutions.hands
 
 hands = mp_hands.Hands(
     static_image_mode=False,  
-    max_num_hands=1,           
+    max_num_hands=2,           
     min_detection_confidence=0.5  
 )
 
@@ -43,7 +43,6 @@ while True:
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
     if results.multi_hand_landmarks:
-        
         if key != 255:
 
             char = chr(key)
@@ -62,7 +61,7 @@ while True:
             print(f"Image saved at: {file_path}")
 
             time.sleep(0.5)
- 
+
 cam.release()
 
 cv2.destroyAllWindows()
