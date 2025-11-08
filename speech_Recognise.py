@@ -1,29 +1,52 @@
-
 import speech_recognition as sr
+import os
+import cv2
+import string
 
-# Initialize recognizer
 recognizer = sr.Recognizer()
 
-# Use the default microphone as the audio source
 with sr.Microphone() as source:
-    print("🎤 Listening... Please speak something.")
-    # Adjusts for background noise for better accuracy
+    print("Listening...")
     recognizer.adjust_for_ambient_noise(source, duration=1)
-    
-    # Capture audio
     audio_data = recognizer.listen(source)
-    print("✅ Audio captured. Recognizing...")
-
+    print("Audio captured. Recognizing...")
     try:
-        # Convert speech to text using Google’s recognizer
         text = recognizer.recognize_google(audio_data)
-        print("🗣 You said:", text)
-
-        # Store recognized text in a string variable
+        print("You said:", text)
         detected_audio = text
-        print("✅ Stored in variable ->", detected_audio)
-
     except sr.UnknownValueError:
-        print("❌ Sorry, could not understand the audio.")
+        print("Could not understand the audio.")
+        detected_audio = ""
     except sr.RequestError:
-        print("⚠️ Could not request results. Check your internet connection.")
+        print("Request error. Check internet connection.")
+        detected_audio = ""
+
+RESOURCE_PATH = "Resources"
+
+def display_character_image(char):
+    if char == " ":
+        folder_name = "Space"
+    elif char == ".":
+        folder_name = "FullStop"
+    elif char.upper() in string.ascii_uppercase:
+        folder_name = char.upper()
+    else:
+        return
+    folder_path = os.path.join(RESOURCE_PATH, folder_name)
+    if not os.path.exists(folder_path):
+        return
+    image_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    if not image_files:
+        return
+    img_path = os.path.join(folder_path, image_files[0])
+    img = cv2.imread(img_path)
+    if img is None:
+        return
+    cv2.imshow(f"Character: {folder_name}", img)
+    cv2.waitKey(700)
+    cv2.destroyAllWindows()
+
+input_text = detected_audio.lower()
+print("Input text:", input_text)
+for char in input_text:
+    display_character_image(char)
