@@ -43,10 +43,11 @@ while True:
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
     if results.multi_hand_landmarks:
-        if key != 255:
+        
 
-            char = chr(key)
-            char = char.upper()
+            if key != 255:
+                char = chr(key)
+                char = char.upper()
 
             folder_path = os.path.join("resources", char)
 
@@ -60,7 +61,7 @@ while True:
 
             print(f"Image saved at: {file_path}")
 
-            time.sleep(0.5)
+            #time.sleep(0.5)
 
 cam.release()
 

@@ -28,6 +28,7 @@ for i in range (65,91):
     observation = np.append(observation, chr(i))
 
 observation = np.append(observation, "Delete")
+observation = np.append(observation, "FullStop")
 
 wrong = np.array([])
 wrong_no = np.array([])
@@ -43,14 +44,12 @@ def predict_alphabet(i):
         folder = "Space"
     elif (i == 27):
         folder = "Delete"
+    elif (i == 28):
+        folder = "FullStop"
     else:
         folder = chr(i + 64)
 
     no_wrong = 0
-
-    print(f"Testing for alphabet: {folder}, Index: {i}")
-
-    print("---------------------------------------------------")
 
     folder_path = os.path.join("resources", folder)
 
@@ -78,7 +77,7 @@ def predict_alphabet(i):
 
                 hand_array = hand_array.reshape(1, -1)
 
-                prediction = model.predict(hand_array)
+                prediction = model.predict(hand_array, verbose=0)
 
                 predicted_class = np.argmax(prediction, axis=1)[0]
 
@@ -91,14 +90,11 @@ def predict_alphabet(i):
 
                     no_wrong += 1
 
-    wrong_no = np.append(wrong_no, folder + " " + str(no_wrong))
-
-    print(f"Completed testing for alphabet: {folder}, Number of Wrong Predictions: {no_wrong}")
-
-    print("---------------------------------------------------")
+    wrong_no = np.append(wrong_no, no_wrong)
 
 
-for i in tqdm(range(0, 28), desc="Testing Alphabets"):
+
+for i in tqdm(range(0, 29), desc="Testing Alphabets"):
     predict_alphabet(i)
 
 print("\n")
@@ -112,5 +108,10 @@ for alp in wrong:
 
 print("---------------------------------------------------")
 
+s = 0
 for num in wrong_no:
-    print(num)
+    s+=1
+print("Total Wrong Predictions: "+str(s))
+accuracy = ((2900 - s)/2900)*100
+print(f"Overall Accuracy: {accuracy}%")
+    

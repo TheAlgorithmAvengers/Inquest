@@ -38,6 +38,10 @@ def extract_coordinates(i):
         folder = "Delete"
         i_num = 27
 
+    if (i == 28):
+        folder = "FullStop"
+        i_num = 28
+
     folder_path = os.path.join("resources", folder)
 
     print("\n")
@@ -74,8 +78,8 @@ def extract_coordinates(i):
     del folder, i_num, folder_path, filename
   
 
-for i in tqdm (range(0,28), desc="Processing Folders"):
-    if i == 0 or i == 27:
+for i in tqdm (range(29), desc="Processing Folders"):
+    if i == 0 or i == 27 or i == 28:
         extract_coordinates(i)
     else:
         extract_coordinates(i+64)
