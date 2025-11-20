@@ -10,7 +10,7 @@ Soham Ladda - ladda.soham1605@gmail.com - +91 9136126300
 
 Rehaan Mulchandani - - +91 9821077777
 
-Medhansh Nanavati - - +91 9136637792
+Medhansh Nanavati - medhanshnanavati@gmail.com - +91 9136637792
 
 If you want to use / replicate / modify any part of the code please contact either of the team members. Any unauthorised use is forbidden and any disputes will be sorted in the Bombay High Court.
 
